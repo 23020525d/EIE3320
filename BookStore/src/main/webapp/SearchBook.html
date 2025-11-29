@@ -1,0 +1,191 @@
+<! DOCTYPE html>
+<html>
+<head>
+    <title>Online Bookstore - Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1976D2;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 { font-size: 24px; margin: 0; }
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .navbar-links a:hover { background-color: rgba(255,255,255,0.1); }
+        .navbar-links a.logout { background-color: #d32f2f; }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        .search-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .search-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #1976D2;
+            outline: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-primary { background-color: #1976D2; color: white; }
+        .btn-primary:hover { background-color: #1565C0; }
+        .btn-secondary { background-color: #4CAF50; color: white; }
+        .btn-secondary:hover { background-color: #45a049; }
+        .btn-advanced { background-color: #ff9800; color: white; }
+        .btn-advanced:hover { background-color: #f57c00; }
+        .or-divider {
+            text-align: center;
+            margin: 15px 0;
+            color: #666;
+        }
+        .datetime {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .quick-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .quick-links a {
+            color: #1976D2;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .quick-links a:hover { text-decoration: underline; }
+    </style>
+    <script type="text/JavaScript">
+        function validateForm() {
+            if(isBlank(document.search.isbn. value) && isBlank(document.search.author. value)){
+                alert("Fill in at least one entry");
+                return false;
+            }
+            else if(isNaN(document.search.isbn.value)){
+                alert("Invalid ISBN");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+        function isBlank(s) {
+            for (var i = 0; i < s. length; i++) {
+                if (s. charAt(i) != " "){
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function displayDateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var day = now.getDate();
+            var month = now.getMonth() + 1;
+            var year = now.getFullYear();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('datetime').innerHTML = 
+                'Current Time: ' + hours + ':' + minutes + ' | Date: ' + day + '/' + month + '/' + year;
+        }
+        
+        window.onload = displayDateTime;
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Online Bookstore</h1>
+        <div class="navbar-links">
+            <a href="StudentDashboard.jsp">Dashboard</a>
+            <a href="AdvancedSearch. jsp">Advanced Search</a>
+            <a href="BrowseBooks.jsp">Browse All</a>
+            <a href="show-order.jsp">Cart</a>
+            <a href="PurchaseHistory.jsp">My Purchases</a>
+            <a href="LogoutServlet" class="logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="search-container">
+            <h2>Search for Books</h2>
+            
+            <div class="datetime" id="datetime"></div>
+            
+            <form name="search" onsubmit="return validateForm()" method="post" action="QueryServlet">
+                <div class="form-group">
+                    <label for="isbn">Search by ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" placeholder="Enter ISBN number">
+                </div>
+                
+                <div class="or-divider">- OR -</div>
+                
+                <div class="form-group">
+                    <label for="author">Search by Author:</label>
+                    <input type="text" id="author" name="author" placeholder="Enter author name">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Search Books</button>
+            </form>
+            
+            <a href="AdvancedSearch.jsp" class="btn btn-advanced">Advanced Search & Filters</a>
+            <a href="BrowseBooks. jsp" class="btn btn-secondary">Browse All Books</a>
+            
+            <div class="quick-links">
+                <a href="StudentDashboard.jsp">Back to Dashboard</a>
+                <a href="show-order.jsp">View Cart</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
