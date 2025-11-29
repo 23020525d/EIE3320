@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online Bookstore</title>
+	<script type="text/JavaScript">
+		// Make sure that either of the text boxes has been filled
+		function validateForm() {
+    		if(isBlank(document.search.isbn.value) && isBlank(document.search.author.value)){
+    			alert("Fill in at least one entry");
+    			return false;
+    		}
+    		else if(isNaN(document.search.isbn.value)){
+    			alert("Invalid ISBN");
+    			return false;
+    		}
+    		else{
+    			return true;
+			}
+		}
+
+		function isBlank(s) {
+			for (var i = 0; i < s.length; i++) {
+				if (s.charAt(i) != " "){
+					return false;
+				}
+			}
+			return true;
+		}
+	</script>
+</head>
+
+<body>
+	<p>Student Name: Tse Wing Ping & Tsui Lap Chi Keith<br>
+    Student ID: 23020525D & 23036158D</p>
+    
+    <script language="javascript">
+		// Create a Date object using new Date(). Then call the getHours(), getMinutes(),
+		// getDate(), getMonth(), and getFullYear() method of the Date object.
+        const date = new Date;
+        document.write("The time now is: " + date.getHours() + ":" + date.getMinutes());
+        document.write("<br>The date is: " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+    </script>
+    
+    <form name="search" onsubmit="return validateForm()" method="post" action="QueryServlet">
+        <p>Please choose <strong>either ISBN or Author</strong> to search books<br>
+        Search by ISBN: <input type="text" name="isbn"><br>
+        Search by Author: <input type="text" name="author"><br>
+        <input type="submit" value="Submit"></p>
+    </form>
+</body>
+
+</html>
